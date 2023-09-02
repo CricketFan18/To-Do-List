@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="/styles/day.css">
+</head>
+<body>
+    <%- include("partials/header.ejs") %>
+    <div class="tasks">
+   <% if(today.length != 0){  %>
+       <% for(let i = 0; i < today.length ; i++){%>
+        <div class="viewtasks">
+            <input type="checkbox" class="check" data-index="<%= i %>">
+            <p class="text"><%= today[i] %></p>
+        </div>        
+    <%}}%>
+    </div>
+
+    <div class="form">
+        <form action="/daysubmit" method="post">
+            <input type="text" class="addTask" name="fname">
+            <button class="submit" type="submit">+</button>
+        </form>    
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".check").on("click", function(){
+                const index = $(this).data("index");
+                $(".text").eq(index).toggleClass("strikethrough");
+            });
+        });  
+    </script>
+    <%- include("partials/footer.ejs") %>
+</body>
+</html>
